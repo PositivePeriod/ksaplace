@@ -2,7 +2,7 @@ import { Game } from './game.js';
 
 class App {
     constructor() {
-        this.showRange = { width: 4, height: 4 };
+        this.showRange = { width: 6, height: 6 };
         this.showWidth = 2 * this.showRange.width + 1;
         this.showHeight = 2 * this.showRange.height + 1;
 
@@ -17,7 +17,7 @@ class App {
 
     resize() {
         var stageWidth = document.body.clientWidth;
-        var stageHeight = document.body.clientHeight;
+        var stageHeight = document.body.clientHeight * 0.8;
 
         this.grid = Math.min(stageWidth / this.showWidth, stageHeight / this.showHeight);
         this.stageWidth = this.grid * this.showWidth;

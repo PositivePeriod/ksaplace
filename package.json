@@ -4,6 +4,7 @@
     "description": "Place your pixel and draw your big picture",
     "main": "server/src/server.js",
     "scripts": {
+        "start": "node server/src/server.js",
         "develop": "node server/src/server.js",
         "developloop": "nodemon ./",
         "test": "echo \"Error: no test specified\" && exit 1"

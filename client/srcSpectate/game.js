@@ -1,4 +1,3 @@
-import { KeyboardManager } from "./input.js";
 import { Network } from "./network.js";
 
 
@@ -15,19 +14,6 @@ export class Game {
 
         this.network = new Network(this);
         this.network.joinGame('ClientX');
-
-        this.commandKey = {
-            "KeyUp": "ArrowUp",
-            "KeyDown": "ArrowDown",
-            "KeyLeft": "ArrowLeft",
-            "KeyRight": "ArrowRight"
-        }
-        this.input = new KeyboardManager();
-        this.input.listen(this.commandKey["KeyUp"], this.network.handle.bind(this.network, "KeyUp"));
-        this.input.listen(this.commandKey["KeyDown"], this.network.handle.bind(this.network, "KeyDown"));
-        this.input.listen(this.commandKey["KeyLeft"], this.network.handle.bind(this.network, "KeyLeft"));
-        this.input.listen(this.commandKey["KeyRight"], this.network.handle.bind(this.network, "KeyRight"));
-        this.input.activate();
     }
 
     resize(stageWidth, stageHeight, grid) {

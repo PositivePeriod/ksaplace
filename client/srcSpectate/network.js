@@ -2,6 +2,8 @@ const MSG = Object.freeze({
     CONNECT_SERVER: "connection",
     JOIN_GAME: "joinGame",
     UPDATE_GAME: "updateGame",
+    UPDATE_PIXEL: "updatePixel",
+    SPECTATE_GAME: "spectateGame",
     LEAVE_GAME: "leaveGame",
     DISCONNECT_SERVER: "disconnect",
 });
@@ -9,8 +11,8 @@ const MSG = Object.freeze({
 export class Network {
     constructor(map) {
         this.map = map;
-        this.posX = 0;
-        this.posY = 0;
+        this.posX = 50; // TODO
+        this.posY = 50; // TODO
 
         const socketProtocol = (window.location.protocol.includes('https')) ? 'wss' : 'ws';
         this.socket = io(`${socketProtocol}://${window.location.host}`);
@@ -20,30 +22,13 @@ export class Network {
         setInterval(this.requestUpdate.bind(this), 1000);
     }
 
-    handle(command) {
-        switch (command) {
-            case "KeyUp":
-                this.posY -= 1;
-                break;
-            case "KeyDown":
-                this.posY += 1;
-                break;
-            case "KeyLeft":
-                this.posX -= 1;
-                break;
-            case "KeyRight":
-                this.posX += 1;
-                break;
-        }
-    }
-
     requestUpdate() {
-        this.socket.emit(MSG.UPDATE_GAME, { 'x': this.posX, 'y': this.posY });
+        this.socket.emit(MSG.SPECTATE_GAME, null);
     }
 
     joinGame(name) {
         this.socket.emit(MSG.JOIN_GAME, { 'name': name });
-        this.socket.on(MSG.UPDATE_GAME, this.updateGame.bind(this));
+        this.socket.on(MSG.SPECTATE_GAME, this.updateGame.bind(this));
         this.socket.on(MSG.DISCONNECT_SERVER, this.disconnectFromServer.bind(this));
     }
 
